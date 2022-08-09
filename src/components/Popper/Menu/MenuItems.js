@@ -1,9 +1,9 @@
 import styles from './Menu.module.scss';
 import Button from '~/components/Button';
 
-function MenuItems({ data }) {
+function MenuItems({ data, onClick }) {
     return (
-        <Button className={styles['menu-item']} leftIcon={data.icon} to={data.to}>
+        <Button onClick={onClick} className={styles['menu-item']} leftIcon={data.icon} to={data.to}>
             {data.title}
         </Button>
     );

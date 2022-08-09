@@ -2,7 +2,6 @@ import styles from './Button.module.scss';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Button({
     primary = false,

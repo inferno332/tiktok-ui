@@ -9,6 +9,7 @@ import {
     faEarthAsia,
     faQuestionCircle,
     faKeyboard,
+    faPlus
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 
@@ -23,6 +24,18 @@ const MENU_ITEMS = [
     {
         icon: <FontAwesomeIcon icon={faEarthAsia} />,
         title: 'English',
+        children: {
+            title: 'Language',
+            data: [{
+                type: 'language',
+                code: 'en',
+                title: 'English'
+            },{
+                type: 'language',
+                code: 'vi',
+                title: 'Tiếng Việt'
+            }]
+        }
     },
     {
         icon: <FontAwesomeIcon icon={faQuestionCircle} />,
@@ -41,7 +54,17 @@ function Header() {
         setTimeout(() => {
             setSearchResult([]);
         }, 0);
-    });
+    },[]);
+
+    // Handle logic
+    const handleMenuChange = (menuItem) => {
+        switch (menuItem.type) {
+            case 'language':
+                // Handle change
+            break;
+            default:
+        }
+    }
 
     return (
         <header className={clsx(styles.wrapper)}>
@@ -72,11 +95,12 @@ function Header() {
                     </div>
                 </Tippy>
                 <div className={clsx(styles.actions)}>
-                    <Button upload>Upload</Button>
+                    <Button upload leftIcon={<FontAwesomeIcon icon={faPlus}/>}>Upload</Button>
                     <Button primary>Log in</Button>
 
                     <Menu
                         items={MENU_ITEMS}
+                        onChange={handleMenuChange}
                     >
                         <button className={clsx(styles.menu)}>
                             <FontAwesomeIcon icon={faEllipsisVertical} />
