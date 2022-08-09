@@ -3,20 +3,39 @@
     min-width: 100px;
     border-radius: 4px;
     font-size: 1.6rem;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
     background-color: var(--white);
     border: 1px solid transparent;
+    user-select: none;
+
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+    + .wrapper {
+        margin-left: 16px;
+    }
 }
 
-
 // Button type
+.rounded {
+    border-radius: 999px;
+    border-color: rgba(22, 24, 35, 0.12);
+
+    &:hover {
+        border-color: rgba(22, 24, 35, 0.2);
+        background-color: rgba(22, 24, 35, 0.03);
+    }
+}
+
 .primary {
     background-color: var(--primary);
     color: var(--white);
 
     &:hover {
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)),#FE2C55;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #fe2c55;
     }
 }
 
@@ -25,7 +44,17 @@
     border-color: currentColor;
 
     &:hover {
+        border-color: currentColor;
         background-color: rgba(254, 44, 85, 0.06);
+    }
+}
+
+.upload {
+    border-color: rgba(22, 24, 35, 0.12);
+    border-radius: 2px;
+
+    &:hover {
+        background-color: rgba(22, 24, 35, 0.03);
     }
 }
 

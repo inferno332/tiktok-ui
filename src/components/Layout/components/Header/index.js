@@ -50,9 +50,8 @@ function Header() {
                     </div>
                 </Tippy>
                 <div className={clsx(styles.actions)}>
-                    <Button primary>
-                        Log in
-                    </Button>
+                    <Button upload>Upload</Button>
+                    <Button primary>Log in</Button>
                 </div>
             </div>
         </header>
