@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --primary: rgba(254, 44, 85, 1.0);
+    --primary: rgba(254, 44, 85, 1);
     --black: #000;
     --white: #fff;
     --text-color: #333;
@@ -27,11 +27,13 @@ body {
     line-height: 1.5;
     text-rendering: optimizeSpeed;
     color: var(--text-color);
-
 }
 
-button, input, [tabindex] {
+button,
+input,
+[tabindex] {
     outline: none;
+    color: var(--text-color);
     border: none;
 }
 

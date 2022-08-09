@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 function Button({
     primary = false,
@@ -17,7 +16,9 @@ function Button({
 
     to,
     href,
-
+    leftIcon,
+    rightIcon,
+    className,
     children,
     ...passProps
 }) {
@@ -32,7 +33,7 @@ function Button({
         Comp = 'a';
     }
 
-    const classes = clsx(styles.wrapper, {
+    const classes = clsx(styles.wrapper, className, {
         [styles.primary]: primary,
         [styles.outline]: outline,
         [styles.small]: small,
@@ -43,8 +44,9 @@ function Button({
     });
     return (
         <Comp className={classes} {...props}>
-            {upload && <FontAwesomeIcon style={{marginRight: '8px'}} icon={faPlus}></FontAwesomeIcon>}
-            <span>{children}</span>
+            {leftIcon && <span className={styles.icon}>{leftIcon}</span>}
+            <span className={styles.label}>{children}</span>
+            {rightIcon && <span className={styles.icon}>{rightIcon}</span>}
         </Comp>
     );
 }

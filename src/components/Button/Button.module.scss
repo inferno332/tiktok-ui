@@ -1,4 +1,7 @@
 .wrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     padding: 9px 16px;
     min-width: 100px;
     border-radius: 4px;
@@ -17,6 +20,17 @@
     + .wrapper {
         margin-left: 16px;
     }
+}
+
+.label + .icon,
+.icon + .label {
+    margin-left: 8px;
+}
+
+.icon {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
 }
 
 // Button type
