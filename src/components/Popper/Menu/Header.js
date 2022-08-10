@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react/headless';
 import styles from './Menu.module.scss';
 
 function Header({ title, onBack }) {

@@ -5,15 +5,9 @@ import {
     faMagnifyingGlass,
     faSpinner,
     faEllipsisVertical,
-    faEarthAsia,
-    faQuestionCircle,
-    faKeyboard,
     faPlus,
-    faCoins,
-    faGear,
     faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
-import { faUser, faMessage } from '@fortawesome/free-regular-svg-icons';
 
 import Tippy from '@tippyjs/react/';
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -24,11 +18,22 @@ import styles from './Header.module.scss';
 import images from '~/assets/images';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItem from '~/components/AccountItem';
+import Image from '~/components/Image';
 import Menu from '~/components/Popper/Menu';
+import {
+    CoinIcon,
+    FeedBackIcon,
+    InboxIcon,
+    KeyboardIcon,
+    LanguageIcon,
+    MessageIcon,
+    SettingIcon,
+    UserIcon,
+} from '~/components/Icons';
 
 const MENU_ITEMS = [
     {
-        icon: <FontAwesomeIcon icon={faEarthAsia} />,
+        icon: <LanguageIcon />,
         title: 'English',
         children: {
             title: 'Language',
@@ -47,12 +52,12 @@ const MENU_ITEMS = [
         },
     },
     {
-        icon: <FontAwesomeIcon icon={faQuestionCircle} />,
+        icon: <FeedBackIcon />,
         title: 'Feedback and help',
         to: '/feedback',
     },
     {
-        icon: <FontAwesomeIcon icon={faKeyboard} />,
+        icon: <KeyboardIcon />,
         title: 'Keyboard shortcuts',
     },
 ];
@@ -61,17 +66,17 @@ function Header() {
     const currentUser = true;
     const userMenu = [
         {
-            icon: <FontAwesomeIcon icon={faUser} />,
+            icon: <UserIcon />,
             title: 'View Profile',
             to: '/user',
         },
         {
-            icon: <FontAwesomeIcon icon={faCoins} />,
+            icon: <CoinIcon />,
             title: 'Get Coins',
             href: 'https://www.tiktok.com/coin?enter_from=web_main_nav&lang=en',
         },
         {
-            icon: <FontAwesomeIcon icon={faGear} />,
+            icon: <SettingIcon />,
             title: 'Settings',
             to: '/setting',
         },
@@ -135,9 +140,15 @@ function Header() {
                     </Button>
                     {currentUser ? (
                         <>
-                            <Tippy content="Messages" placement="bottom" delay={200} trigger='click'>
+                            <Tippy content="Messages" placement="bottom" delay={200}>
                                 <button className={styles['action-btn']}>
-                                    <FontAwesomeIcon icon={faMessage} />
+                                    <MessageIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy content="Inbox" placement="bottom" delay={200}>
+                                <button className={styles['action-btn']}>
+                                    <span className={styles['action-inbox']}>13</span>
+                                    <InboxIcon width="3.2rem" height="3.2rem" />
                                 </button>
                             </Tippy>
                         </>
@@ -148,11 +159,11 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
+                            <Image
                                 className={styles['user-avatar']}
                                 alt="avatar"
-                                src="https://scontent.fdad3-4.fna.fbcdn.net/v/t39.30808-6/272875390_1776641729207776_1970868125261581740_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=lqkk6rmXjjYAX8mBpl9&_nc_ht=scontent.fdad3-4.fna&oh=00_AT_xRLb-BlBTDcNxrVFtTSZZF_vmB3N-RbxT9wSUK3dZ7A&oe=62F822A8"
-                            ></img>
+                                src="https:/sss/scontent.fdad3-4.fna.fbcdn.net/v/t39.30808-6/272875390_1776641729207776_1970868125261581740_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=lqkk6rmXjjYAX8mBpl9&_nc_ht=scontent.fdad3-4.fna&oh=00_AT_xRLb-BlBTDcNxrVFtTSZZF_vmB3N-RbxT9wSUK3dZ7A&oe=62F822A8"
+                            />
                         ) : (
                             <button className={styles['action-menu']}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />
