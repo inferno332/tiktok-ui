@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCircleXmark,
@@ -9,9 +8,16 @@ import {
     faEarthAsia,
     faQuestionCircle,
     faKeyboard,
-    faPlus
+    faPlus,
+    faCoins,
+    faGear,
+    faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react/headless';
+import { faUser, faMessage } from '@fortawesome/free-regular-svg-icons';
+
+import Tippy from '@tippyjs/react/';
+import HeadlessTippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css';
 
 import Button from '~/components/Button';
 import styles from './Header.module.scss';
@@ -26,21 +32,24 @@ const MENU_ITEMS = [
         title: 'English',
         children: {
             title: 'Language',
-            data: [{
-                type: 'language',
-                code: 'en',
-                title: 'English'
-            },{
-                type: 'language',
-                code: 'vi',
-                title: 'Tiếng Việt'
-            }]
-        }
+            data: [
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+            ],
+        },
     },
     {
         icon: <FontAwesomeIcon icon={faQuestionCircle} />,
         title: 'Feedback and help',
-        to: '/feedback'
+        to: '/feedback',
     },
     {
         icon: <FontAwesomeIcon icon={faKeyboard} />,
@@ -49,62 +58,106 @@ const MENU_ITEMS = [
 ];
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
+    const currentUser = true;
+    const userMenu = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'View Profile',
+            to: '/user',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCoins} />,
+            title: 'Get Coins',
+            href: 'https://www.tiktok.com/coin?enter_from=web_main_nav&lang=en',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faGear} />,
+            title: 'Settings',
+            to: '/setting',
+        },
 
+        ...MENU_ITEMS,
+        {
+            icon: <FontAwesomeIcon icon={faSignOut} />,
+            title: 'Log out',
+            to: '/logout',
+            separate: true,
+        },
+    ];
     useEffect(() => {
         setTimeout(() => {
             setSearchResult([]);
         }, 0);
-    },[]);
+    }, []);
 
     // Handle logic
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
             case 'language':
                 // Handle change
-            break;
+                break;
             default:
         }
-    }
+    };
 
     return (
-        <header className={clsx(styles.wrapper)}>
-            <div className={clsx(styles.inner)}>
+        <header className={styles.wrapper}>
+            <div className={styles.inner}>
                 <img src={images.logo} alt="Tiktok"></img>
-                <Tippy
+                <HeadlessTippy
                     interactive
                     visible={searchResult.length > 0}
                     render={(attrs) => (
-                        <div className={clsx(styles['search-result'])} tabIndex="-1" {...attrs}>
+                        <div className={styles['search-result']} tabIndex="-1" {...attrs}>
                             <PopperWrapper>
-                                <h4 className={clsx(styles['search-title'])}>Accounts</h4>
+                                <h4 className={styles['search-title']}>Accounts</h4>
                                 <AccountItem />
                                 <AccountItem />
                             </PopperWrapper>
                         </div>
                     )}
                 >
-                    <div className={clsx(styles.search)}>
+                    <div className={styles.search}>
                         <input placeholder="Search account and videos"></input>
-                        <button className={clsx(styles.clear)}>
+                        <button className={styles.clear}>
                             <FontAwesomeIcon icon={faCircleXmark} />
                         </button>
-                        <FontAwesomeIcon icon={faSpinner} className={clsx(styles.loading)} />
-                        <button className={clsx(styles['search-btn'])}>
+                        <FontAwesomeIcon icon={faSpinner} className={styles.loading} />
+                        <button className={styles['search-btn']}>
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </div>
-                </Tippy>
-                <div className={clsx(styles.actions)}>
-                    <Button upload leftIcon={<FontAwesomeIcon icon={faPlus}/>}>Upload</Button>
-                    <Button primary>Log in</Button>
+                </HeadlessTippy>
 
-                    <Menu
-                        items={MENU_ITEMS}
-                        onChange={handleMenuChange}
-                    >
-                        <button className={clsx(styles.menu)}>
-                            <FontAwesomeIcon icon={faEllipsisVertical} />
-                        </button>
+                <div className={styles.actions}>
+                    <Button upload leftIcon={<FontAwesomeIcon icon={faPlus} />}>
+                        Upload
+                    </Button>
+                    {currentUser ? (
+                        <>
+                            <Tippy content="Messages" placement="bottom" delay={200} trigger='click'>
+                                <button className={styles['action-btn']}>
+                                    <FontAwesomeIcon icon={faMessage} />
+                                </button>
+                            </Tippy>
+                        </>
+                    ) : (
+                        <>
+                            <Button primary>Log in</Button>
+                        </>
+                    )}
+                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+                        {currentUser ? (
+                            <img
+                                className={styles['user-avatar']}
+                                alt="avatar"
+                                src="https://scontent.fdad3-4.fna.fbcdn.net/v/t39.30808-6/272875390_1776641729207776_1970868125261581740_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=lqkk6rmXjjYAX8mBpl9&_nc_ht=scontent.fdad3-4.fna&oh=00_AT_xRLb-BlBTDcNxrVFtTSZZF_vmB3N-RbxT9wSUK3dZ7A&oe=62F822A8"
+                            ></img>
+                        ) : (
+                            <button className={styles['action-menu']}>
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </button>
+                        )}
                     </Menu>
                 </div>
             </div>
