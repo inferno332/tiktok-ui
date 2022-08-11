@@ -12,18 +12,29 @@ function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
 
     useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([1]);
-        }, 0);
-    }, []);
+        if (!searchValue.trim()) {
+            setSearchResult([]);
+            return;
+        }
+
+        setLoading(true);
+
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+            .then((res) => res.json())
+            .then((res) => {
+                setSearchResult(res.data);
+                setLoading(false);
+            });
+    }, [searchValue]);
 
     const handleClear = () => {
         setSearchValue('');
-        setSearchResult([])
+        setSearchResult([]);
         inputRef.current.focus();
     };
 
@@ -39,8 +50,9 @@ function Search() {
                 <div className={styles['search-result']} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
                         <h4 className={styles['search-title']}>Accounts</h4>
-                        <AccountItem />
-                        <AccountItem />
+                        {searchResult.map((result) => (
+                            <AccountItem key={result.id} data={result} />
+                        ))}
                     </PopperWrapper>
                 </div>
             )}
@@ -54,13 +66,12 @@ function Search() {
                     onChange={(e) => setSearchValue(e.target.value)}
                     onFocus={() => setShowResult(true)}
                 />
-                {!!searchValue && (
+                {!!searchValue && !loading && (
                     <button className={styles.clear} onClick={handleClear}>
                         <FontAwesomeIcon icon={faCircleXmark} />
                     </button>
                 )}
-
-                {/* <FontAwesomeIcon icon={faSpinner} className={styles.loading} /> */}
+                {loading && <FontAwesomeIcon icon={faSpinner} className={styles.loading} />}{' '}
                 <button className={styles['search-btn']}>
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </button>
