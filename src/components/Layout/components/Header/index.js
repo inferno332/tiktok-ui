@@ -1,25 +1,15 @@
-import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCircleXmark,
-    faMagnifyingGlass,
-    faSpinner,
-    faEllipsisVertical,
-    faPlus,
-    faSignOut,
-} from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisVertical, faPlus, faSignOut } from '@fortawesome/free-solid-svg-icons';
 
 import Tippy from '@tippyjs/react/';
-import HeadlessTippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
 
 import Button from '~/components/Button';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
-import { Wrapper as PopperWrapper } from '~/components/Popper';
-import AccountItem from '~/components/AccountItem';
 import Image from '~/components/Image';
 import Menu from '~/components/Popper/Menu';
+import Search from '../Search'
 import {
     CoinIcon,
     FeedBackIcon,
@@ -62,7 +52,6 @@ const MENU_ITEMS = [
     },
 ];
 function Header() {
-    const [searchResult, setSearchResult] = useState([]);
     const currentUser = true;
     const userMenu = [
         {
@@ -89,11 +78,6 @@ function Header() {
             separate: true,
         },
     ];
-    useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([]);
-        }, 0);
-    }, []);
 
     // Handle logic
     const handleMenuChange = (menuItem) => {
@@ -109,30 +93,8 @@ function Header() {
         <header className={styles.wrapper}>
             <div className={styles.inner}>
                 <img src={images.logo} alt="Tiktok"></img>
-                <HeadlessTippy
-                    interactive
-                    visible={searchResult.length > 0}
-                    render={(attrs) => (
-                        <div className={styles['search-result']} tabIndex="-1" {...attrs}>
-                            <PopperWrapper>
-                                <h4 className={styles['search-title']}>Accounts</h4>
-                                <AccountItem />
-                                <AccountItem />
-                            </PopperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={styles.search}>
-                        <input placeholder="Search account and videos"></input>
-                        <button className={styles.clear}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        <FontAwesomeIcon icon={faSpinner} className={styles.loading} />
-                        <button className={styles['search-btn']}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </button>
-                    </div>
-                </HeadlessTippy>
+
+                <Search/>
 
                 <div className={styles.actions}>
                     <Button upload leftIcon={<FontAwesomeIcon icon={faPlus} />}>
