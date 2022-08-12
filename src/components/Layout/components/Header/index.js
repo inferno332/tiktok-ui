@@ -1,15 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisVertical, faPlus, faSignOut } from '@fortawesome/free-solid-svg-icons';
 
+import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react/';
 import 'tippy.js/dist/tippy.css';
 
+import routesConfig from '~/config/routes'
 import Button from '~/components/Button';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 import Image from '~/components/Image';
 import Menu from '~/components/Popper/Menu';
-import Search from '../Search'
+import Search from '../Search';
 import {
     CoinIcon,
     FeedBackIcon,
@@ -92,9 +94,11 @@ function Header() {
     return (
         <header className={styles.wrapper}>
             <div className={styles.inner}>
-                <img src={images.logo} alt="Tiktok"></img>
+                <Link to={routesConfig.home} className={styles['logo-link']}>
+                    <img src={images.logo} alt="Tiktok"></img>
+                </Link>
 
-                <Search/>
+                <Search />
 
                 <div className={styles.actions}>
                     <Button upload leftIcon={<FontAwesomeIcon icon={faPlus} />}>
