@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react/';
 import 'tippy.js/dist/tippy.css';
 
-import config from '~/config/'
+import config from '~/config/';
 import Button from '~/components/Button';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
