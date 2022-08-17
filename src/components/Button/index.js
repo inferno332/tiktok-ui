@@ -1,4 +1,5 @@
 import styles from './Button.module.scss';
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
@@ -9,10 +10,8 @@ function Button({
     upload = false,
     disabled = false,
     rounded = false,
-
     small = false,
     large = false,
-
     to,
     href,
     leftIcon,
@@ -48,6 +47,22 @@ function Button({
             {rightIcon && <span className={styles.icon}>{rightIcon}</span>}
         </Comp>
     );
+}
+
+Button.propTypes = {
+    primary: PropTypes.bool,
+    outline: PropTypes.bool,
+    upload: PropTypes.bool,
+    disabled: PropTypes.bool,
+    rounded: PropTypes.bool,
+    small: PropTypes.bool,
+    large: PropTypes.bool,
+    to: PropTypes.string,
+    href: PropTypes.string,
+    leftIcon: PropTypes.node,
+    rightIcon: PropTypes.node,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
 }
 
 export default Button;

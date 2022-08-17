@@ -1,8 +1,9 @@
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styles from './AccountItem.module.scss';
 import Image from '~/components/Image';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function AccountItem({ data }) {
     return (
         <Link to={`/@${data.nickname}`} className={styles.wrapper}>
@@ -17,5 +18,8 @@ function AccountItem({ data }) {
         </Link>
     );
 }
+AccountItem.propTypes = {
+    data: PropTypes.object.isRequired,
+};
 
 export default AccountItem;
